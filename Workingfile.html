@@ -36,51 +36,8 @@
 	</section>
 	<section id="portfolio">
 		<h2>My Projects</h2>
-		<div class="gallery">
-			<figure>
-				<img src="assets/images/abajour-tahina.png" alt="Tahina Lampshade">
-				<figcaption>Tahina Lampshade</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-v.png" alt="Paris V Appartment">
-				<figcaption>Paris V Appartment</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/restaurant-sushisen-londres.png" alt="Sushisen Restaurant - London">
-				<figcaption>Sushisen Restaurant - London</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/la-balisiere.png" alt="La Balisière” Villa – Port-Louis">
-				<figcaption>“La Balisière” Villa – Port-Louis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/structures-thermopolis.png" alt="Thermopolis Structures">
-				<figcaption>Thermopolis Structures</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-x.png" alt="Paris X Appartment">
-				<figcaption>Paris X Appartment</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/le-coteau-cassis.png" alt="Le Coteau” Pavillon - Cassis">
-				<figcaption>“Le Coteau” Pavillon - Cassis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/villa-ferneze.png" alt="Ferneze Villa - Elba">
-				<figcaption>Ferneze Villa - Elba</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-xviii.png" alt="Paris XVIII Appartment">
-				<figcaption>Paris XVIII Appartment</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/bar-lullaby-paris.png" alt="Lullaby” Bar - Paris">
-				<figcaption>“Lullaby” Bar - Paris</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
-				<figcaption>First Arte Hotel - New Delhi</figcaption>
-			</figure>
+		<div class="gallery" id="gallery">
+			<!-- Dynamic content will be inserted here -->
 		</div>
 	</section>
 	<section id="contact">
@@ -105,5 +62,48 @@
 		</ul>
 	</nav>
 </footer>
+
+<script>
+// Fetch data from the API and populate the gallery
+async function loadProjects() {
+  try {
+    const response = await fetch('http://localhost:5678/api/works', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+    const data = await response.json();
+    
+    // Find the gallery container
+    const gallery = document.getElementById('gallery');
+    
+    // Clear existing content
+    gallery.innerHTML = '';
+
+    // Loop through the data and create HTML for each project
+    data.forEach(project => {
+      const figure = document.createElement('figure');
+      const img = document.createElement('img');
+      img.src = project.imageUrl;  // Assuming API response includes 'imageUrl' for the image
+      img.alt = project.title;
+      const figcaption = document.createElement('figcaption');
+      figcaption.textContent = project.title;  // Assuming API response includes 'title' for the project title
+
+      // Append the image and caption to the figure
+      figure.appendChild(img);
+      figure.appendChild(figcaption);
+
+      // Append the figure to the gallery
+      gallery.appendChild(figure);
+    });
+  } catch (error) {
+    console.error('Error fetching the API:', error);
+  }
+}
+
+// Load the projects when the page loads
+window.onload = loadProjects;
+</script>
 </body>
 </html>
