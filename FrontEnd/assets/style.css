@@ -186,3 +186,33 @@ footer nav ul {
 	margin: 2em
 }
 
+
+/* Styling for the category buttons */
+#button-container {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-top: 20px;
+  }
+  
+  button {
+	padding: 10px 20px;
+	background-color: white;
+	border: 1px solid;
+	cursor: pointer;
+	font-family: 'Work Sans';
+	font-weight: 700;
+	border-radius: 60px;
+	color:#1D6154;
+	
+  }
+  
+  button.active {
+	background-color: #2a7f62;
+	color: white;
+  }
+  
+  button:hover {
+	background-color: #2a7f62;
+	color: white;
+  }
