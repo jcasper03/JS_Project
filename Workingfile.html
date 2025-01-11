@@ -15,9 +15,9 @@
 	<h1>Sophie Bluel <span>Interior Designer</span></h1>
 	<nav>
 		<ul>
-			<li>projects</li>
-			<li>contact</li>
-			<li>login</li>
+			<li>Projects</li>
+			<li>Contact</li>
+			<li>Login</li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -34,12 +34,20 @@
 			<p>If necessary, a multidisciplinary team can be brought into your project, including an accredited architect and a decorator.</p>
 		</article>
 	</section>
+	
 	<section id="portfolio">
 		<h2>My Projects</h2>
+			<!-- Category Buttons Section -->
+	<section id="category-buttons">
+		<div id="button-container">
+			<!-- Buttons will be dynamically inserted here -->
+		</div>
+	</section>
 		<div class="gallery" id="gallery">
 			<!-- Dynamic content will be inserted here -->
 		</div>
 	</section>
+	
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Do you have a project in mind? Let’s talk about it!</p>
@@ -64,46 +72,102 @@
 </footer>
 
 <script>
-// Fetch data from the API and populate the gallery
+// Fetch categories from the API and populate the buttons
+async function loadCategories() {
+  try {
+    const response = await fetch('http://localhost:5678/api/categories', {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    });
+    const categories = await response.json();
+    console.log('Categories:', categories); // Log categories to check
+
+    // Find the button container and populate it with category buttons
+    const buttonContainer = document.getElementById('button-container');
+
+    // Create "All" button first
+    const allButton = document.createElement('button');
+    allButton.textContent = 'All';
+    allButton.dataset.categoryId = 'all';  // A special value to represent all projects
+    allButton.addEventListener('click', () => filterProjectsByCategory('all', allButton));
+    buttonContainer.appendChild(allButton);
+
+    // Create buttons for each category
+    categories.forEach(category => {
+      const button = document.createElement('button');
+      button.textContent = category.name;
+      button.dataset.categoryId = category.id; // Store the category ID in the button
+      button.addEventListener('click', () => filterProjectsByCategory(category.id, button));
+      buttonContainer.appendChild(button);
+    });
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+  }
+}
+
+// Fetch projects and display them in the gallery
+let allProjects = []; // To hold all projects
 async function loadProjects() {
   try {
     const response = await fetch('http://localhost:5678/api/works', {
       method: 'GET',
-      headers: {
-        'Accept': 'application/json'
-      }
+      headers: { 'Accept': 'application/json' }
     });
-    const data = await response.json();
-    
-    // Find the gallery container
-    const gallery = document.getElementById('gallery');
-    
-    // Clear existing content
-    gallery.innerHTML = '';
-
-    // Loop through the data and create HTML for each project
-    data.forEach(project => {
-      const figure = document.createElement('figure');
-      const img = document.createElement('img');
-      img.src = project.imageUrl;  // Assuming API response includes 'imageUrl' for the image
-      img.alt = project.title;
-      const figcaption = document.createElement('figcaption');
-      figcaption.textContent = project.title;  // Assuming API response includes 'title' for the project title
-
-      // Append the image and caption to the figure
-      figure.appendChild(img);
-      figure.appendChild(figcaption);
-
-      // Append the figure to the gallery
-      gallery.appendChild(figure);
-    });
+    allProjects = await response.json();
+    console.log('All Projects:', allProjects); // Log all projects to check
+    displayProjects(allProjects); // Display all projects initially
   } catch (error) {
-    console.error('Error fetching the API:', error);
+    console.error('Error fetching projects:', error);
   }
 }
 
-// Load the projects when the page loads
-window.onload = loadProjects;
+// Display the projects in the gallery
+function displayProjects(projects) {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = ''; // Clear current gallery
+
+  projects.forEach(project => {
+    const figure = document.createElement('figure');
+    const img = document.createElement('img');
+    img.src = project.imageUrl; // Assuming the project has 'imageUrl'
+    img.alt = project.title;
+    const figcaption = document.createElement('figcaption');
+    figcaption.textContent = project.title; // Assuming the project has 'title'
+
+    figure.appendChild(img);
+    figure.appendChild(figcaption);
+    gallery.appendChild(figure);
+  });
+}
+
+// Filter projects based on the selected category
+function filterProjectsByCategory(categoryId, selectedButton) {
+  // Highlight the selected button and reset others
+  const buttons = document.querySelectorAll('#button-container button');
+  buttons.forEach(button => button.classList.remove('active')); // Remove active class from all buttons
+  selectedButton.classList.add('active'); // Add active class to the clicked button
+
+  let filteredProjects;
+
+  // If "All" button is clicked, show all projects
+  if (categoryId === 'all') {
+    filteredProjects = allProjects; // Show all projects
+  } else {
+    // Otherwise, filter by category ID
+    filteredProjects = allProjects.filter(project => project.category.id === categoryId);
+  }
+
+  displayProjects(filteredProjects); // Display filtered projects
+}
+
+// Load categories and projects when the page loads
+window.onload = () => {
+  loadCategories();  // Load categories for filtering
+  loadProjects();    // Load all projects initially
+};
 </script>
+
+
+
 </body>
 </html>
