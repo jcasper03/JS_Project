@@ -40,7 +40,7 @@ form.addEventListener("submit", function (event) {
             console.log("Login successful:", data);
             // Store token (if needed) and redirect to home page
             localStorage.setItem("auth_token", data.token); // Example of storing a token
-            window.location.href = "/FrontEnd/edit.html"; // Redirect to home page
+            window.location.href = "/edit.html"; // Redirect to home page
         })
         .catch((error) => {
             console.error("Error:", error.message);
