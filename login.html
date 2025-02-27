@@ -17,7 +17,7 @@
 		<ul>
 			<li>Projects</li>
 			<li>Contact</li>
-      <li><a href="login.html" class ="active">Login</a></li>
+			<li><a href="login.html" class ="active">Login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -25,12 +25,12 @@
 <main>
     <div class="login-container">
         <h2>Login</h2>
-        <form action="/login" method="post">
+        <form id="login-form">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email">
+            <input type="email" id="email" name="email" required>
             
             <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" required>
             
             <input type="submit" value="Sign In">
         </form>
@@ -40,46 +40,7 @@
     </div>
 </main>
 
-<script>
-// Define the API URL
-const apiUrl = "http://localhost:5678/api/users/login";
 
-// Capture user input (example)
-const email = "sophie.bluel@test.tld"; // Replace with dynamic input value
-const password = "S0phie"; // Replace with dynamic input value
-
-// Create the payload
-const payload = {
-    email: email,
-    password: password,
-};
-
-// Make the POST request
-fetch(apiUrl, {
-    method: "POST",
-    headers: {
-        "Accept": "application/json", // Accept header
-        "Content-Type": "application/json", // Content-Type header
-    },
-    body: JSON.stringify(payload), // Convert payload to JSON
-})
-    .then((response) => {
-        if (!response.ok) {
-            // Handle HTTP errors
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json(); // Parse the JSON response
-    })
-    .then((data) => {
-        console.log("Login successful:", data);
-        // Handle success (e.g., store token, redirect)
-    })
-    .catch((error) => {
-        console.error("Error:", error.message);
-        // Handle errors (e.g., show error message to user)
-    });
-
-</script>
-
+<script src="/login.js"></script>
 </body>
 </html>
