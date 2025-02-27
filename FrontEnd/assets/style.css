@@ -88,6 +88,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
+	
 
 }
 nav li {
@@ -97,6 +98,12 @@ nav li {
 
 li:hover {
 	color: #B1663C;
+}
+
+nav a {
+	text-decoration: none;
+	color: inherit;
+
 }
 #introduction {
 	display: flex;
