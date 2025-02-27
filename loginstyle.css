@@ -1,0 +1,137 @@
+ /* Reset & Basic styles */
+body {
+    max-width: 1140px;
+    margin: 0 auto;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    min-height: 100vh;  /* Ensures the body takes up at least full height */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+}
+
+/* Keep the header at the top with space between elements */
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0;
+}
+
+/* Section styling */
+section {
+    margin: 50px 0;
+}
+
+/* h1 Styling */
+h1 {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Syne';
+    font-size: 22px;
+    font-weight: 800;
+    color: #B1663C;
+}
+
+h1 > span {
+    font-family: 'Work Sans';
+    font-size: 10px;
+    letter-spacing: 0.1em;
+}
+
+/* h2 Styling */
+h2 {
+    font-family: 'Syne';
+    font-weight: 700;
+    font-size: 30px;
+    color: #1D6154;
+}
+
+/* Navigation Styling */
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+
+nav li {
+    padding: 0 10px;
+    font-size: 1.2em;
+}
+
+li:hover {
+    color: #B1663C;
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Style the active link */
+nav .active a {
+    font-weight: bold; /* Makes the link bold */
+    color: #1D6154; /* Optional: highlight the active link with a different color */
+}
+
+/* Submit button styling */
+input[type="submit"] {
+    font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #1D6154;
+    margin: 2em auto;
+    width: 126px;
+    height: 35px;
+    text-align: center;
+    border-radius: 60px;
+}
+
+/* Login form styling */
+.login-container form {
+    display: flex;
+    flex-direction: column; /* Stacks the form elements vertically */
+    gap: 1rem; /* Adds space between form fields */
+    width: 100%; /* Make sure the form takes full width inside the container */
+    max-width: 379px; /* Limit the max width to the desired size */
+}
+
+/* Centering the login container */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center contents vertically */
+    align-items: center; /* Center contents horizontally */
+    margin-top: 130px; /* Add space to push down from top */
+    padding: 20px; /* Add some padding */
+    background-color: #fff; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center;
+}
+
+/* Align labels to the left above inputs */
+.login-container form label {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Styling for form input fields */
+.login-container form input[type="text"],
+.login-container form input[type="password"],
+.login-container form input[type="email"] {
+    width: 100%; /* Make input fields span the width */
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc; /* Light gray border */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    outline: none; /* Remove default outline */
+    transition: box-shadow 0.3s ease; /* Smooth transition for the shadow on focus */
+}
+
+.forgot-password a {
+     color: black;
+}
